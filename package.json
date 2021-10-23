@@ -16,14 +16,23 @@
   "dependencies": {
     "@apollo/client": "^3.4.16",
     "graphql": "^15.6.1",
+    "immer": "^9.0.6",
+    "lodash": "^4.17.21",
     "react": "^16.14.0",
-    "remax": "^2.9.1"
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "redux-actions": "^2.6.5",
+    "redux-thunk": "^2.3.0",
+    "remax": "^2.9.1",
+    "use-immer": "^0.6.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",
     "@commitlint/config-angular": "^13.2.0",
     "@commitlint/config-conventional": "^13.2.0",
+    "@types/lodash": "^4.14.176",
     "@types/react": "^16.14.2",
+    "@types/redux-actions": "^2.6.2",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.2",
     "husky": "^7.0.4",
