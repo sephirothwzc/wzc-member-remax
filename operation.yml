@@ -1,0 +1,30 @@
+hooks:
+  # 格式化
+  afterAllFileWrite:
+    - prettier --write
+overwrite: true
+schema: 'http://127.0.0.1:8061/graphql'
+documents: 'graphql/**/*.gql'
+generates:
+  # 基础类型
+  src/generator/foundation.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+  # 操作
+  src/generator/foundation.operation.ts:
+    preset: import-types
+    presetConfig:
+      typesPath: ./foundation
+      importTypesNamespace: SchemaTypes
+    plugins:
+      - 'typescript-react-apollo'
+    config:
+      # defaultBaseOptions: {
+      #   fetchPolicy: 'cache-and-network'
+      # }
+  # src/generator/auth-center.operation.ts:
+  #   plugins:
+  #     - 'typescript-react-apollo'
+config:
+  immutableTypes: true

@@ -1,8 +1,24 @@
+import { useLoginQuery } from '@/generator/foundation.operation';
 import * as React from 'react';
 import { View, Text, Image } from 'remax/wechat';
-import styles from './index.css';
+import styles from './index.module.scss';
+import { Loading } from 'annar';
 
 export default () => {
+  const { data, loading } = useLoginQuery({
+    variables: {
+      username: '18554870324',
+      password: '123456',
+    },
+  });
+  if (loading) {
+    return (
+      <View className={styles.main}>
+        <Loading type="wave" />
+      </View>
+    );
+  }
+
   return (
     <View className={styles.app}>
       <View className={styles.header}>
@@ -11,7 +27,8 @@ export default () => {
           className={styles.logo}
         />
         <View className={styles.text}>
-          编辑 <Text className={styles.path}>src/pages/index/index.js</Text> 开始
+          编辑 <Text className={styles.path}>src/pages/index/index.js</Text>{' '}
+          开始
         </View>
       </View>
     </View>

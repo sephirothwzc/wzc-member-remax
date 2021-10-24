@@ -1,0 +1,11 @@
+# login
+query login($username: String!, $password: String!) {
+  login(username: $username, password: $password) {
+    ...LoginUser
+  }
+}
+
+fragment LoginUser on AuthGql {
+  id
+  token
+}

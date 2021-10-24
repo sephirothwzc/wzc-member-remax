@@ -1,6 +1,6 @@
 import * as React from 'react';
-import './app.css';
 import AppPage from '@/plugin/app-page';
+import './app.scss';
 
 interface AppProp {
   children: React.ReactElement;
