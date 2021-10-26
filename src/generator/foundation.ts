@@ -19,8 +19,6 @@ export type Scalars = {
   DateTime: any;
   /** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSONObject: any;
-  /** The javascript `Date` as integer. Type represents date and time as number of milliseconds from start of UNIX epoch. */
-  Timestamp: any;
 };
 
 export type AppOrder = {
@@ -30,9 +28,9 @@ export type AppOrder = {
   readonly appUserIdObj?: Maybe<AppUser>;
   /** 业务编码权限用 */
   readonly businessCode?: Maybe<Scalars['String']>;
-  readonly createdAt: Scalars['Timestamp'];
+  readonly createdAt: Scalars['DateTime'];
   readonly createdId: Scalars['String'];
-  readonly deletedAt: Scalars['Timestamp'];
+  readonly deletedAt: Scalars['DateTime'];
   readonly deletedId: Scalars['String'];
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -47,7 +45,7 @@ export type AppOrder = {
   readonly remark?: Maybe<Scalars['String']>;
   /** 订单状态 */
   readonly status?: Maybe<Scalars['String']>;
-  readonly updatedAt: Scalars['Timestamp'];
+  readonly updatedAt: Scalars['DateTime'];
   readonly updatedId: Scalars['String'];
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
@@ -65,9 +63,9 @@ export type AppOrderSaveIn = {
   readonly appUserIdObj?: Maybe<AppUserSaveIn>;
   /** 业务编码权限用 */
   readonly businessCode?: Maybe<Scalars['String']>;
-  readonly createdAt?: Maybe<Scalars['Timestamp']>;
+  readonly createdAt?: Maybe<Scalars['DateTime']>;
   readonly createdId?: Maybe<Scalars['String']>;
-  readonly deletedAt?: Maybe<Scalars['Timestamp']>;
+  readonly deletedAt?: Maybe<Scalars['DateTime']>;
   readonly deletedId?: Maybe<Scalars['String']>;
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -82,7 +80,7 @@ export type AppOrderSaveIn = {
   readonly remark?: Maybe<Scalars['String']>;
   /** 订单状态 */
   readonly status?: Maybe<Scalars['String']>;
-  readonly updatedAt?: Maybe<Scalars['Timestamp']>;
+  readonly updatedAt?: Maybe<Scalars['DateTime']>;
   readonly updatedId?: Maybe<Scalars['String']>;
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
@@ -99,9 +97,9 @@ export type AppUser = {
   readonly birthday?: Maybe<Scalars['DateTime']>;
   /** 业务编码权限用 */
   readonly businessCode?: Maybe<Scalars['String']>;
-  readonly createdAt: Scalars['Timestamp'];
+  readonly createdAt: Scalars['DateTime'];
   readonly createdId: Scalars['String'];
-  readonly deletedAt: Scalars['Timestamp'];
+  readonly deletedAt: Scalars['DateTime'];
   readonly deletedId: Scalars['String'];
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -137,7 +135,7 @@ export type AppUser = {
   readonly status?: Maybe<Scalars['String']>;
   /** 微信unionid */
   readonly unionid?: Maybe<Scalars['String']>;
-  readonly updatedAt: Scalars['Timestamp'];
+  readonly updatedAt: Scalars['DateTime'];
   readonly updatedId: Scalars['String'];
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
@@ -159,9 +157,9 @@ export type AppUserSaveIn = {
   readonly birthday?: Maybe<Scalars['DateTime']>;
   /** 业务编码权限用 */
   readonly businessCode?: Maybe<Scalars['String']>;
-  readonly createdAt?: Maybe<Scalars['Timestamp']>;
+  readonly createdAt?: Maybe<Scalars['DateTime']>;
   readonly createdId?: Maybe<Scalars['String']>;
-  readonly deletedAt?: Maybe<Scalars['Timestamp']>;
+  readonly deletedAt?: Maybe<Scalars['DateTime']>;
   readonly deletedId?: Maybe<Scalars['String']>;
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -197,7 +195,7 @@ export type AppUserSaveIn = {
   readonly status?: Maybe<Scalars['String']>;
   /** 微信unionid */
   readonly unionid?: Maybe<Scalars['String']>;
-  readonly updatedAt?: Maybe<Scalars['Timestamp']>;
+  readonly updatedAt?: Maybe<Scalars['DateTime']>;
   readonly updatedId?: Maybe<Scalars['String']>;
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
@@ -217,14 +215,24 @@ export type AuthGql = {
   readonly username?: Maybe<Scalars['String']>;
 };
 
+export type CodeToSessionGql = {
+  readonly __typename?: 'CodeToSessionGql';
+  /** openid */
+  readonly openid?: Maybe<Scalars['String']>;
+  /** session_key */
+  readonly sessionKey?: Maybe<Scalars['String']>;
+  /** unionid */
+  readonly unionid?: Maybe<Scalars['String']>;
+};
+
 export type DataDictionary = {
   readonly __typename?: 'DataDictionary';
   /** 业务编码权限用 */
   readonly businessCode?: Maybe<Scalars['String']>;
-  readonly createdAt: Scalars['Timestamp'];
+  readonly createdAt: Scalars['DateTime'];
   readonly createdId: Scalars['String'];
   readonly dataDictionaryParentId?: Maybe<ReadonlyArray<DataDictionary>>;
-  readonly deletedAt: Scalars['Timestamp'];
+  readonly deletedAt: Scalars['DateTime'];
   readonly deletedId: Scalars['String'];
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -246,7 +254,7 @@ export type DataDictionary = {
   readonly parentIdObj?: Maybe<DataDictionary>;
   /** 备注 */
   readonly remark?: Maybe<Scalars['String']>;
-  readonly updatedAt: Scalars['Timestamp'];
+  readonly updatedAt: Scalars['DateTime'];
   readonly updatedId: Scalars['String'];
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
@@ -261,10 +269,10 @@ export type DataDictionaryList = {
 export type DataDictionarySaveIn = {
   /** 业务编码权限用 */
   readonly businessCode?: Maybe<Scalars['String']>;
-  readonly createdAt?: Maybe<Scalars['Timestamp']>;
+  readonly createdAt?: Maybe<Scalars['DateTime']>;
   readonly createdId?: Maybe<Scalars['String']>;
   readonly dataDictionaryParentId?: Maybe<ReadonlyArray<DataDictionarySaveIn>>;
-  readonly deletedAt?: Maybe<Scalars['Timestamp']>;
+  readonly deletedAt?: Maybe<Scalars['DateTime']>;
   readonly deletedId?: Maybe<Scalars['String']>;
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -286,27 +294,21 @@ export type DataDictionarySaveIn = {
   readonly parentIdObj?: Maybe<DataDictionarySaveIn>;
   /** 备注 */
   readonly remark?: Maybe<Scalars['String']>;
-  readonly updatedAt?: Maybe<Scalars['Timestamp']>;
+  readonly updatedAt?: Maybe<Scalars['DateTime']>;
   readonly updatedId?: Maybe<Scalars['String']>;
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
 };
 
-export type FailureStatus = {
-  readonly __typename?: 'FailureStatus';
-  readonly error?: Maybe<Scalars['String']>;
-  readonly status: Scalars['String'];
-};
-
 export type GqlInputTypeBase = {
   /** 业务编码权限用 */
   readonly businessCode?: Maybe<Scalars['String']>;
-  readonly createdAt?: Maybe<Scalars['Timestamp']>;
+  readonly createdAt?: Maybe<Scalars['DateTime']>;
   readonly createdId?: Maybe<Scalars['String']>;
-  readonly deletedAt?: Maybe<Scalars['Timestamp']>;
+  readonly deletedAt?: Maybe<Scalars['DateTime']>;
   readonly deletedId?: Maybe<Scalars['String']>;
   readonly id?: Maybe<Scalars['String']>;
-  readonly updatedAt?: Maybe<Scalars['Timestamp']>;
+  readonly updatedAt?: Maybe<Scalars['DateTime']>;
   readonly updatedId?: Maybe<Scalars['String']>;
 };
 
@@ -314,12 +316,12 @@ export type GqlObjectTypeBase = {
   readonly __typename?: 'GqlObjectTypeBase';
   /** 业务编码权限用 */
   readonly businessCode: Scalars['String'];
-  readonly createdAt: Scalars['Timestamp'];
+  readonly createdAt: Scalars['DateTime'];
   readonly createdId: Scalars['String'];
-  readonly deletedAt: Scalars['Timestamp'];
+  readonly deletedAt: Scalars['DateTime'];
   readonly deletedId: Scalars['String'];
   readonly id: Scalars['ID'];
-  readonly updatedAt: Scalars['Timestamp'];
+  readonly updatedAt: Scalars['DateTime'];
   readonly updatedId: Scalars['String'];
 };
 
@@ -416,9 +418,9 @@ export type OtherApiLog = {
   readonly businessCode?: Maybe<Scalars['String']>;
   /** 三方成功与否 */
   readonly codeStatus?: Maybe<Scalars['String']>;
-  readonly createdAt: Scalars['Timestamp'];
+  readonly createdAt: Scalars['DateTime'];
   readonly createdId: Scalars['String'];
-  readonly deletedAt: Scalars['Timestamp'];
+  readonly deletedAt: Scalars['DateTime'];
   readonly deletedId: Scalars['String'];
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -427,7 +429,7 @@ export type OtherApiLog = {
   readonly remark?: Maybe<Scalars['String']>;
   /** 三方类型 */
   readonly type?: Maybe<Scalars['String']>;
-  readonly updatedAt: Scalars['Timestamp'];
+  readonly updatedAt: Scalars['DateTime'];
   readonly updatedId: Scalars['String'];
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
@@ -452,9 +454,9 @@ export type OtherApiLogSaveIn = {
   readonly businessCode?: Maybe<Scalars['String']>;
   /** 三方成功与否 */
   readonly codeStatus?: Maybe<Scalars['String']>;
-  readonly createdAt?: Maybe<Scalars['Timestamp']>;
+  readonly createdAt?: Maybe<Scalars['DateTime']>;
   readonly createdId?: Maybe<Scalars['String']>;
-  readonly deletedAt?: Maybe<Scalars['Timestamp']>;
+  readonly deletedAt?: Maybe<Scalars['DateTime']>;
   readonly deletedId?: Maybe<Scalars['String']>;
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -463,7 +465,7 @@ export type OtherApiLogSaveIn = {
   readonly remark?: Maybe<Scalars['String']>;
   /** 三方类型 */
   readonly type?: Maybe<Scalars['String']>;
-  readonly updatedAt?: Maybe<Scalars['Timestamp']>;
+  readonly updatedAt?: Maybe<Scalars['DateTime']>;
   readonly updatedId?: Maybe<Scalars['String']>;
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
@@ -471,7 +473,6 @@ export type OtherApiLogSaveIn = {
 
 export type Query = {
   readonly __typename?: 'Query';
-  readonly HealthCheck: StatusCheckUnion;
   readonly appOrder?: Maybe<AppOrder>;
   readonly appOrderAll: ReadonlyArray<AppOrder>;
   readonly appOrderCount: Scalars['Int'];
@@ -480,6 +481,7 @@ export type Query = {
   readonly appUserAll: ReadonlyArray<AppUser>;
   readonly appUserCount: Scalars['Int'];
   readonly appUserList?: Maybe<AppUserList>;
+  readonly codeToSession?: Maybe<CodeToSessionGql>;
   readonly dataDictionary?: Maybe<DataDictionary>;
   readonly dataDictionaryAll: ReadonlyArray<DataDictionary>;
   readonly dataDictionaryCount: Scalars['Int'];
@@ -493,10 +495,6 @@ export type Query = {
   readonly roleAll: ReadonlyArray<Role>;
   readonly roleCount: Scalars['Int'];
   readonly roleList?: Maybe<RoleList>;
-};
-
-export type QueryHealthCheckArgs = {
-  expectError?: Maybe<Scalars['Boolean']>;
 };
 
 export type QueryAppOrderArgs = {
@@ -529,6 +527,10 @@ export type QueryAppUserCountArgs = {
 
 export type QueryAppUserListArgs = {
   param?: Maybe<QueryListParam>;
+};
+
+export type QueryCodeToSessionArgs = {
+  code: Scalars['String'];
 };
 
 export type QueryDataDictionaryArgs = {
@@ -600,9 +602,9 @@ export type Role = {
   readonly businessCode?: Maybe<Scalars['String']>;
   /** 角色编号[unique] */
   readonly code?: Maybe<Scalars['String']>;
-  readonly createdAt: Scalars['Timestamp'];
+  readonly createdAt: Scalars['DateTime'];
   readonly createdId: Scalars['String'];
-  readonly deletedAt: Scalars['Timestamp'];
+  readonly deletedAt: Scalars['DateTime'];
   readonly deletedId: Scalars['String'];
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -615,7 +617,7 @@ export type Role = {
   /** 备注 */
   readonly remark?: Maybe<Scalars['String']>;
   readonly roleParentId?: Maybe<ReadonlyArray<Role>>;
-  readonly updatedAt: Scalars['Timestamp'];
+  readonly updatedAt: Scalars['DateTime'];
   readonly updatedId: Scalars['String'];
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
@@ -633,9 +635,9 @@ export type RoleSaveIn = {
   readonly businessCode?: Maybe<Scalars['String']>;
   /** 角色编号[unique] */
   readonly code?: Maybe<Scalars['String']>;
-  readonly createdAt?: Maybe<Scalars['Timestamp']>;
+  readonly createdAt?: Maybe<Scalars['DateTime']>;
   readonly createdId?: Maybe<Scalars['String']>;
-  readonly deletedAt?: Maybe<Scalars['Timestamp']>;
+  readonly deletedAt?: Maybe<Scalars['DateTime']>;
   readonly deletedId?: Maybe<Scalars['String']>;
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
@@ -648,18 +650,10 @@ export type RoleSaveIn = {
   /** 备注 */
   readonly remark?: Maybe<Scalars['String']>;
   readonly roleParentId?: Maybe<ReadonlyArray<RoleSaveIn>>;
-  readonly updatedAt?: Maybe<Scalars['Timestamp']>;
+  readonly updatedAt?: Maybe<Scalars['DateTime']>;
   readonly updatedId?: Maybe<Scalars['String']>;
   /** BaseTable.version */
   readonly version?: Maybe<Scalars['Int']>;
-};
-
-export type StatusCheckUnion = FailureStatus | SuccessStatus;
-
-export type SuccessStatus = {
-  readonly __typename?: 'SuccessStatus';
-  readonly experimentalField: Scalars['Int'];
-  readonly status: Scalars['String'];
 };
 
 export type LoginQueryVariables = Exact<{
@@ -679,8 +673,32 @@ export type LoginQuery = {
     | undefined;
 };
 
+export type CodeToSessionQueryVariables = Exact<{
+  code: Scalars['String'];
+}>;
+
+export type CodeToSessionQuery = {
+  readonly __typename?: 'Query';
+  readonly codeToSession?:
+    | {
+        readonly __typename?: 'CodeToSessionGql';
+        readonly openid?: string | null | undefined;
+        readonly unionid?: string | null | undefined;
+        readonly sessionKey?: string | null | undefined;
+      }
+    | null
+    | undefined;
+};
+
 export type LoginUserFragment = {
   readonly __typename?: 'AuthGql';
   readonly id?: string | null | undefined;
   readonly token?: string | null | undefined;
+};
+
+export type CodeToSessionGqlFragment = {
+  readonly __typename?: 'CodeToSessionGql';
+  readonly openid?: string | null | undefined;
+  readonly unionid?: string | null | undefined;
+  readonly sessionKey?: string | null | undefined;
 };

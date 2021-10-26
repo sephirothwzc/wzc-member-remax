@@ -5,7 +5,20 @@ query login($username: String!, $password: String!) {
   }
 }
 
+# codeToSession
+query codeToSession($code: String!) {
+  codeToSession(code: $code) {
+    ...CodeToSessionGql
+  }
+}
+
 fragment LoginUser on AuthGql {
   id
   token
+}
+
+fragment CodeToSessionGql on CodeToSessionGql {
+  openid
+  unionid
+  sessionKey
 }
