@@ -217,10 +217,14 @@ export type AuthGql = {
 
 export type CodeToSessionGql = {
   readonly __typename?: 'CodeToSessionGql';
+  /** id */
+  readonly id?: Maybe<Scalars['String']>;
   /** openid */
   readonly openid?: Maybe<Scalars['String']>;
   /** session_key */
   readonly sessionKey?: Maybe<Scalars['String']>;
+  /** token */
+  readonly token?: Maybe<Scalars['String']>;
   /** unionid */
   readonly unionid?: Maybe<Scalars['String']>;
 };
@@ -685,6 +689,8 @@ export type CodeToSessionQuery = {
         readonly openid?: string | null | undefined;
         readonly unionid?: string | null | undefined;
         readonly sessionKey?: string | null | undefined;
+        readonly id?: string | null | undefined;
+        readonly token?: string | null | undefined;
       }
     | null
     | undefined;
@@ -701,4 +707,6 @@ export type CodeToSessionGqlFragment = {
   readonly openid?: string | null | undefined;
   readonly unionid?: string | null | undefined;
   readonly sessionKey?: string | null | undefined;
+  readonly id?: string | null | undefined;
+  readonly token?: string | null | undefined;
 };

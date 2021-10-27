@@ -3,14 +3,11 @@ import * as React from 'react';
 import { View, Text, Image } from 'remax/wechat';
 import styles from './index.module.scss';
 import { Loading } from 'annar';
+import { useWxLogin } from '@/utils/wx-login';
 
 export default () => {
-  const { data, loading } = useLoginQuery({
-    variables: {
-      username: '18554870324',
-      password: '123456',
-    },
-  });
+  const { data, loading } = useWxLogin();
+
   if (loading) {
     return (
       <View className={styles.main}>
@@ -29,6 +26,7 @@ export default () => {
         <View className={styles.text}>
           编辑 <Text className={styles.path}>src/pages/index/index.js</Text>{' '}
           开始
+          {data}
         </View>
       </View>
     </View>

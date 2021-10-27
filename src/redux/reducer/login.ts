@@ -1,8 +1,8 @@
 import { LOGIN_ACTION } from '../action/login';
 import { Action, handleActions as createReducers } from 'redux-actions';
-import { IAppUser } from 'pages/login';
 import { produce } from 'immer';
 import { Maybe } from 'graphql/jsutils/Maybe';
+import { IAppUser } from '@/utils/wx-login';
 
 const defaultState = {
   appUser: undefined as Maybe<IAppUser>,
