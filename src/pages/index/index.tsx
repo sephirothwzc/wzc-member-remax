@@ -6,15 +6,16 @@ import { Loading } from 'annar';
 import { useWxLogin } from '@/utils/wx-login';
 
 export default () => {
-  const { data, loading } = useWxLogin();
+  const data = useWxLogin();
 
-  if (loading) {
+  if (data.loading) {
     return (
       <View className={styles.main}>
         <Loading type="wave" />
       </View>
     );
   }
+  console.log(styles);
 
   return (
     <View className={styles.app}>
@@ -26,7 +27,6 @@ export default () => {
         <View className={styles.text}>
           编辑 <Text className={styles.path}>src/pages/index/index.js</Text>{' '}
           开始
-          {data}
         </View>
       </View>
     </View>

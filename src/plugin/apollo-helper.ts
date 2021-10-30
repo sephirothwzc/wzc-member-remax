@@ -5,8 +5,6 @@ import {
   InMemoryCache,
   createHttpLink,
   from,
-  ApolloLink,
-  Observable,
 } from '@apollo/client';
 import { get } from 'lodash';
 import store from '@/redux/store';
@@ -15,7 +13,9 @@ import { request as wxRequest } from 'remax/wechat';
 const errorLogLink = onError(({ graphQLErrors, networkError }) => {
   graphQLErrors &&
     graphQLErrors.forEach(({ message, locations, path }) => {
-      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      );
     });
 
   if (networkError) {
@@ -23,11 +23,21 @@ const errorLogLink = onError(({ graphQLErrors, networkError }) => {
     if (statusCode === 403) {
       window.location.href = '/login';
     }
-    const message = get(networkError, 'result.message', get(networkError, 'bodyText'));
+    const message = get(
+      networkError,
+      'result.message',
+      get(networkError, 'bodyText')
+    );
     console.log(`[Network error]: ${message}`);
   }
 });
 
+/**
+ * data: {data: {…}}
+ * errMsg: "request:ok"
+ * header: {Vary: "Origin", Content-Type: "application/json", content-length: "332", Date: "Sat, 30 Oct 2021 13:22:45 GMT", Connection: "keep-alive", …}
+ * statusCode: 200
+ */
 const httpLink = createHttpLink({
   uri: `${process.env.REMAX_APP_BASE_URL}${process.env.REMAX_APP_GRAPHQL}`,
   fetch: async (uri, options) => {
@@ -37,10 +47,15 @@ const httpLink = createHttpLink({
       header: options?.headers,
       method: options?.method as any,
     })
-      .then((res) => {
-        return res;
+      .then(({ data, errMsg, statusCode }) => {
+        return {
+          ok: () => statusCode >= 200 && statusCode < 300,
+          statusText: () => errMsg,
+          text: () => Promise.resolve(JSON.stringify(data)),
+        };
       })
       .catch((error) => {
+        console.log(error);
         return error;
       });
   },

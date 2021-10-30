@@ -1,8 +1,9 @@
 import { useCodeToSessionQuery } from '@/generator/foundation.operation';
 import loginActions, { LOGIN_ACTION } from '@/redux/action/login';
 import { RootState } from '@/redux/store';
+import { Maybe } from 'graphql/jsutils/Maybe';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkSession, login, showToast } from 'remax/wechat';
+import { login, showToast } from 'remax/wechat';
 import { useImmer } from 'use-immer';
 
 export type IAppUser = {
@@ -21,26 +22,27 @@ export const useWxLogin = () => {
   const codeToSessionGql = useCodeToSessionQuery({
     skip: true,
   });
-  const [loading, setLoading] = useImmer(true);
-  const [data, setData] = useImmer(appUser);
-  checkSession({
-    success(res) {
-      console.log(res);
-      console.log('session success!');
-    },
-    async fail() {
-      // login
-      const res = await login();
+  const [data, setData] = useImmer<{
+    appUser: Maybe<IAppUser>;
+    loading: boolean;
+  }>({
+    appUser,
+    loading: true,
+  });
+  // login 用户存在则不更新登陆
+  !appUser &&
+    login().then((res) => {
       // api
       codeToSessionGql
         .refetch({
           code: res.code,
         })
-        .then(({ data }) => {
+        .then((result) => {
+          const data = result.data;
           // 根据openid 登陆
           dispatch(loginActions[LOGIN_ACTION.LOGIN](data.codeToSession));
-          setLoading((draft) => false);
-          setData((draft) => data.codeToSession);
+
+          setData((draft) => ({ appUser: data.codeToSession, loading: false }));
         })
         .catch((error) => {
           showToast({
@@ -48,8 +50,7 @@ export const useWxLogin = () => {
             icon: 'error',
           });
         });
-    },
-  });
+    });
 
-  return { data, loading };
+  return data;
 };
