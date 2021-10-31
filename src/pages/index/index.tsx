@@ -1,31 +1,38 @@
-import { useLoginQuery } from '@/generator/foundation.operation';
 import * as React from 'react';
-import { View, Text, Image } from 'remax/wechat';
+import { Button, View } from 'remax/wechat';
 import styles from './index.module.scss';
-import { Loading, Popup, Button } from 'annar';
+import { Loading, Popup, Button as Abutton } from 'annar';
+import { useWxLogin } from '@/utils/wx-login';
+
+type PhoneDetail = {
+  encryptedData: string;
+  errMsg: string;
+  iv: string;
+};
 
 export default () => {
-  const { data, loading } = useLoginQuery({
-    variables: {
-      username: '18554870324',
-      password: '123456',
-    },
-  });
-
   const [show, setShow] = React.useState(false);
 
-  if (loading) {
-    return (
-      <View className={styles.main}>
-        <Loading type="wave" />
-      </View>
-    );
-  }
+  const data = useWxLogin();
+
+  /**
+   * 获取手机号回掉
+   * @param param0
+   */
+  const getPhoneNumber = ({ detail }: { detail: PhoneDetail }) => {};
+
+  // if (data.loading) {
+  //   return (
+  //     <View className={styles.main}>
+  //       <Loading type="wave" />
+  //     </View>
+  //   );
+  // }
 
   return (
     <View className={styles.app}>
       <View className={styles.header}>
-        <Button onTap={() => setShow(true)}>Click here</Button>
+        <Abutton onTap={() => setShow(true)}>Click here</Abutton>
         <Popup
           open={show}
           onClose={() => {
@@ -40,6 +47,11 @@ export default () => {
             Hi, boy~
           </View>
         </Popup>
+      </View>
+      <View>
+        <Button openType="getPhoneNumber" onGetPhoneNumber={getPhoneNumber}>
+          获取手机号
+        </Button>
       </View>
     </View>
   );

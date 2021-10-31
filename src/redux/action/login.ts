@@ -1,4 +1,4 @@
-import { IAppUser } from '../../pages/login';
+import { IAppUser } from '@/utils/wx-login';
 import { createActions } from 'redux-actions';
 
 export const LOGIN_ACTION = {

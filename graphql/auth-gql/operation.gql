@@ -21,4 +21,6 @@ fragment CodeToSessionGql on CodeToSessionGql {
   openid
   unionid
   sessionKey
+  id
+  token
 }

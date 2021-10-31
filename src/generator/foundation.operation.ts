@@ -14,6 +14,8 @@ export const CodeToSessionGqlFragmentDoc = gql`
     openid
     unionid
     sessionKey
+    id
+    token
   }
 `;
 export const LoginDocument = gql`
