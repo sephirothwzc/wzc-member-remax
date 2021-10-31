@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Button, View } from 'remax/wechat';
+import { View } from 'remax/wechat';
 import styles from './index.module.scss';
-import { Loading, Popup, Button as Abutton } from 'annar';
+import { Loading, Popup, Button } from 'annar';
 import { useWxLogin } from '@/utils/wx-login';
 
 type PhoneDetail = {
@@ -19,35 +19,21 @@ export default () => {
    * 获取手机号回掉
    * @param param0
    */
-  const getPhoneNumber = ({ detail }: { detail: PhoneDetail }) => {};
+  const getPhoneNumber = ({ detail }: { detail: PhoneDetail }) => {
+    console.log(detail);
+  };
 
-  // if (data.loading) {
-  //   return (
-  //     <View className={styles.main}>
-  //       <Loading type="wave" />
-  //     </View>
-  //   );
-  // }
+  if (data.loading) {
+    return (
+      <View className={styles.main}>
+        <Loading type="wave" />
+      </View>
+    );
+  }
 
   return (
     <View className={styles.app}>
-      <View className={styles.header}>
-        <Abutton onTap={() => setShow(true)}>Click here</Abutton>
-        <Popup
-          open={show}
-          onClose={() => {
-            setShow(false);
-          }}
-        >
-          <View
-            style={{
-              padding: '80px',
-            }}
-          >
-            Hi, boy~
-          </View>
-        </Popup>
-      </View>
+      <View className={styles.header}></View>
       <View>
         <Button openType="getPhoneNumber" onGetPhoneNumber={getPhoneNumber}>
           获取手机号
