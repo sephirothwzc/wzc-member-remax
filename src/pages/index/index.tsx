@@ -1,12 +1,25 @@
 import { useLoginQuery } from '@/generator/foundation.operation';
 import * as React from 'react';
-import { View, Text, Image } from 'remax/wechat';
+import { Button, View } from 'remax/wechat';
 import styles from './index.module.scss';
 import { Loading } from 'annar';
 import { useWxLogin } from '@/utils/wx-login';
+import { useImmer } from 'use-immer';
+
+type PhoneDetail = {
+  encryptedData: string;
+  errMsg: string;
+  iv: string;
+};
 
 export default () => {
   const data = useWxLogin();
+
+  /**
+   * 获取手机号回掉
+   * @param param0
+   */
+  const getPhoneNumber = ({ detail }: { detail: PhoneDetail }) => {};
 
   if (data.loading) {
     return (
@@ -15,20 +28,12 @@ export default () => {
       </View>
     );
   }
-  console.log(styles);
 
   return (
-    <View className={styles.app}>
-      <View className={styles.header}>
-        <Image
-          src="https://gw.alipayobjects.com/mdn/rms_b5fcc5/afts/img/A*OGyZSI087zkAAAAAAAAAAABkARQnAQ"
-          className={styles.logo}
-        />
-        <View className={styles.text}>
-          编辑 <Text className={styles.path}>src/pages/index/index.js</Text>{' '}
-          开始
-        </View>
-      </View>
+    <View>
+      <Button openType="getPhoneNumber" onGetPhoneNumber={getPhoneNumber}>
+        获取手机号
+      </Button>
     </View>
   );
 };
