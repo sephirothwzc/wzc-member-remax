@@ -10,7 +10,7 @@ interface AppProp {
 const AppPage: FC<AppProp> = ({ children }) => {
   return (
     <Provider store={store}>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
+      1<ApolloProvider client={client}>{children}</ApolloProvider>
     </Provider>
   );
 };
