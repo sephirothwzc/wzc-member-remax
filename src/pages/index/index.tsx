@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'remax/wechat';
 import styles from './index.module.scss';
-import { Loading, Popup, Button } from 'annar';
+import { Loading, Button } from 'annar';
 import { useWxLogin } from '@/utils/wx-login';
 
 type PhoneDetail = {
@@ -11,8 +11,6 @@ type PhoneDetail = {
 };
 
 export default () => {
-  const [show, setShow] = React.useState(false);
-
   const data = useWxLogin();
 
   /**

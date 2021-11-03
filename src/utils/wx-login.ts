@@ -22,6 +22,7 @@ export const useWxLogin = () => {
   const codeToSessionGql = useCodeToSessionQuery({
     skip: true,
   });
+  const [loginCount, setLoginCount] = useImmer(0);
   const [data, setData] = useImmer<{
     appUser: Maybe<IAppUser>;
     loading: boolean;
@@ -31,26 +32,34 @@ export const useWxLogin = () => {
   });
   // login 用户存在则不更新登陆
   !appUser &&
-    login().then((res) => {
-      // api
-      codeToSessionGql
-        .refetch({
-          code: res.code,
-        })
-        .then((result) => {
-          const data = result.data;
-          // 根据openid 登陆
-          dispatch(loginActions[LOGIN_ACTION.LOGIN](data.codeToSession));
+    loginCount < 3 &&
+    login()
+      .then((res) => {
+        // api
+        codeToSessionGql
+          .refetch({
+            code: res.code,
+          })
+          .then((result) => {
+            const data = result.data;
+            // 根据openid 登陆
+            dispatch(loginActions[LOGIN_ACTION.LOGIN](data.codeToSession));
 
-          setData((draft) => ({ appUser: data.codeToSession, loading: false }));
-        })
-        .catch((error) => {
-          showToast({
-            title: error.message,
-            icon: 'error',
+            setData((draft) => ({
+              appUser: data.codeToSession,
+              loading: false,
+            }));
+          })
+          .catch((error) => {
+            showToast({
+              title: error.message,
+              icon: 'error',
+            });
           });
-        });
-    });
+      })
+      .finally(() => {
+        setLoginCount((draft) => draft++);
+      });
 
   return data;
 };
