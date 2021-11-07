@@ -45,9 +45,11 @@ const WxLogin = () => {
         dispatch(
           loginActions[LOGIN_ACTION.LOGIN]({
             ...data.appUser,
-            ...result.data.wxDataDecoded,
+            phone: result.data.wxDataDecoded?.purePhoneNumber,
+            token: result.data.wxDataDecoded?.token,
           })
         );
+        setShowPhonePopup((draft) => false);
       })
       .catch((error) => {
         ling.current.error(error);
