@@ -21,6 +21,27 @@ fragment CodeToSessionGql on CodeToSessionGql {
   openid
   unionid
   sessionKey
+  phone
   id
   token
+}
+
+query wxDataDecoded(
+  $cloudID: String
+  $iv: String
+  $encryptedData: String
+  $sessionKey: String
+  $openid: String
+) {
+  wxDataDecoded(
+    cloudID: $cloudID
+    iv: $iv
+    encryptedData: $encryptedData
+    sessionKey: $sessionKey
+    openid: $openid
+  ) {
+    purePhoneNumber
+    token
+    id
+  }
 }

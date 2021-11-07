@@ -14,6 +14,7 @@ export const CodeToSessionGqlFragmentDoc = gql`
     openid
     unionid
     sessionKey
+    phone
     id
     token
   }
@@ -132,4 +133,80 @@ export type CodeToSessionLazyQueryHookResult = ReturnType<
 export type CodeToSessionQueryResult = Apollo.QueryResult<
   SchemaTypes.CodeToSessionQuery,
   SchemaTypes.CodeToSessionQueryVariables
+>;
+export const WxDataDecodedDocument = gql`
+  query wxDataDecoded(
+    $cloudID: String
+    $iv: String
+    $encryptedData: String
+    $sessionKey: String
+    $openid: String
+  ) {
+    wxDataDecoded(
+      cloudID: $cloudID
+      iv: $iv
+      encryptedData: $encryptedData
+      sessionKey: $sessionKey
+      openid: $openid
+    ) {
+      purePhoneNumber
+      token
+      id
+    }
+  }
+`;
+
+/**
+ * __useWxDataDecodedQuery__
+ *
+ * To run a query within a React component, call `useWxDataDecodedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWxDataDecodedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWxDataDecodedQuery({
+ *   variables: {
+ *      cloudID: // value for 'cloudID'
+ *      iv: // value for 'iv'
+ *      encryptedData: // value for 'encryptedData'
+ *      sessionKey: // value for 'sessionKey'
+ *      openid: // value for 'openid'
+ *   },
+ * });
+ */
+export function useWxDataDecodedQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    SchemaTypes.WxDataDecodedQuery,
+    SchemaTypes.WxDataDecodedQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    SchemaTypes.WxDataDecodedQuery,
+    SchemaTypes.WxDataDecodedQueryVariables
+  >(WxDataDecodedDocument, options);
+}
+export function useWxDataDecodedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SchemaTypes.WxDataDecodedQuery,
+    SchemaTypes.WxDataDecodedQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    SchemaTypes.WxDataDecodedQuery,
+    SchemaTypes.WxDataDecodedQueryVariables
+  >(WxDataDecodedDocument, options);
+}
+export type WxDataDecodedQueryHookResult = ReturnType<
+  typeof useWxDataDecodedQuery
+>;
+export type WxDataDecodedLazyQueryHookResult = ReturnType<
+  typeof useWxDataDecodedLazyQuery
+>;
+export type WxDataDecodedQueryResult = Apollo.QueryResult<
+  SchemaTypes.WxDataDecodedQuery,
+  SchemaTypes.WxDataDecodedQueryVariables
 >;

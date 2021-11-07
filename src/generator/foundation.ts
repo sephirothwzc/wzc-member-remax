@@ -221,6 +221,8 @@ export type CodeToSessionGql = {
   readonly id?: Maybe<Scalars['String']>;
   /** openid */
   readonly openid?: Maybe<Scalars['String']>;
+  /** phone */
+  readonly phone?: Maybe<Scalars['String']>;
   /** session_key */
   readonly sessionKey?: Maybe<Scalars['String']>;
   /** token */
@@ -499,6 +501,7 @@ export type Query = {
   readonly roleAll: ReadonlyArray<Role>;
   readonly roleCount: Scalars['Int'];
   readonly roleList?: Maybe<RoleList>;
+  readonly wxDataDecoded?: Maybe<WxDataDecoded>;
 };
 
 export type QueryAppOrderArgs = {
@@ -590,6 +593,14 @@ export type QueryRoleListArgs = {
   param?: Maybe<QueryListParam>;
 };
 
+export type QueryWxDataDecodedArgs = {
+  cloudID?: Maybe<Scalars['String']>;
+  encryptedData?: Maybe<Scalars['String']>;
+  iv?: Maybe<Scalars['String']>;
+  openid?: Maybe<Scalars['String']>;
+  sessionKey?: Maybe<Scalars['String']>;
+};
+
 export type QueryListParam = {
   readonly limit?: Maybe<Scalars['Int']>;
   readonly offset?: Maybe<Scalars['Int']>;
@@ -660,6 +671,16 @@ export type RoleSaveIn = {
   readonly version?: Maybe<Scalars['Int']>;
 };
 
+export type WxDataDecoded = {
+  readonly __typename?: 'WxDataDecoded';
+  /** appuser.id */
+  readonly id?: Maybe<Scalars['String']>;
+  /** purePhoneNumber */
+  readonly purePhoneNumber?: Maybe<Scalars['String']>;
+  /** token */
+  readonly token?: Maybe<Scalars['String']>;
+};
+
 export type LoginQueryVariables = Exact<{
   username: Scalars['String'];
   password: Scalars['String'];
@@ -689,6 +710,7 @@ export type CodeToSessionQuery = {
         readonly openid?: string | null | undefined;
         readonly unionid?: string | null | undefined;
         readonly sessionKey?: string | null | undefined;
+        readonly phone?: string | null | undefined;
         readonly id?: string | null | undefined;
         readonly token?: string | null | undefined;
       }
@@ -707,6 +729,28 @@ export type CodeToSessionGqlFragment = {
   readonly openid?: string | null | undefined;
   readonly unionid?: string | null | undefined;
   readonly sessionKey?: string | null | undefined;
+  readonly phone?: string | null | undefined;
   readonly id?: string | null | undefined;
   readonly token?: string | null | undefined;
+};
+
+export type WxDataDecodedQueryVariables = Exact<{
+  cloudID?: Maybe<Scalars['String']>;
+  iv?: Maybe<Scalars['String']>;
+  encryptedData?: Maybe<Scalars['String']>;
+  sessionKey?: Maybe<Scalars['String']>;
+  openid?: Maybe<Scalars['String']>;
+}>;
+
+export type WxDataDecodedQuery = {
+  readonly __typename?: 'Query';
+  readonly wxDataDecoded?:
+    | {
+        readonly __typename?: 'WxDataDecoded';
+        readonly purePhoneNumber?: string | null | undefined;
+        readonly token?: string | null | undefined;
+        readonly id?: string | null | undefined;
+      }
+    | null
+    | undefined;
 };

@@ -1,42 +1,30 @@
 import * as React from 'react';
+import { useRef } from 'react';
 import { View } from 'remax/wechat';
 import styles from './index.module.scss';
-import { Loading, Button } from 'annar';
-import { useWxLogin } from '@/utils/wx-login';
-
-type PhoneDetail = {
-  encryptedData: string;
-  errMsg: string;
-  iv: string;
-};
+import { Ling, Swiper } from 'annar';
+import Frame from '@/component/frame';
 
 export default () => {
-  const data = useWxLogin();
+  const ling = useRef<any>();
 
-  /**
-   * 获取手机号回掉
-   * @param param0
-   */
-  const getPhoneNumber = ({ detail }: { detail: PhoneDetail }) => {
-    console.log(detail);
+  const baseItemStyle = {
+    backgroundColor: '#CCCCFF',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '36px',
   };
 
-  if (data.loading) {
-    return (
-      <View className={styles.main}>
-        <Loading type="wave" />
-      </View>
-    );
-  }
-
   return (
-    <View className={styles.app}>
-      <View className={styles.header}></View>
-      <View>
-        <Button openType="getPhoneNumber" onGetPhoneNumber={getPhoneNumber}>
-          获取手机号
-        </Button>
-      </View>
-    </View>
+    <Frame padding grayBg>
+      <Ling ref={ling} />
+      <Swiper autoplay>
+        <Swiper.Item style={baseItemStyle}>1</Swiper.Item>
+        <Swiper.Item style={baseItemStyle}>2</Swiper.Item>
+        <Swiper.Item style={baseItemStyle}>3</Swiper.Item>
+        <Swiper.Item style={baseItemStyle}>4</Swiper.Item>
+      </Swiper>
+    </Frame>
   );
 };

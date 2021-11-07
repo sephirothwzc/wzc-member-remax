@@ -11,6 +11,7 @@ export type IAppUser = {
   token: string;
   phone: string;
   userName: string;
+  openid: string;
 };
 
 /**
@@ -28,11 +29,10 @@ export const useWxLogin = () => {
     loading: boolean;
   }>({
     appUser,
-    loading: true,
+    loading: false,
   });
-  // login 用户存在则不更新登陆
-  !appUser &&
-    loginCount < 3 &&
+
+  const handleLogin = () => {
     login()
       .then((res) => {
         // api
@@ -60,6 +60,13 @@ export const useWxLogin = () => {
       .finally(() => {
         setLoginCount((draft) => draft++);
       });
+  };
+
+  // login 用户存在则不更新登陆
+  if (!appUser && !data.loading && loginCount < 3) {
+    setData((draft) => ({ appUser, loading: true }));
+    handleLogin();
+  }
 
   return data;
 };
