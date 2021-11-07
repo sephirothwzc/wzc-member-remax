@@ -32,6 +32,8 @@ export type AppOrder = {
   readonly createdId: Scalars['String'];
   readonly deletedAt: Scalars['DateTime'];
   readonly deletedId: Scalars['String'];
+  /** 明细 */
+  readonly details?: Maybe<Scalars['JSONObject']>;
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
   readonly id: Scalars['ID'];
@@ -45,6 +47,8 @@ export type AppOrder = {
   readonly remark?: Maybe<Scalars['String']>;
   /** 订单状态 */
   readonly status?: Maybe<Scalars['String']>;
+  /** 订单标题 */
+  readonly title?: Maybe<Scalars['String']>;
   readonly updatedAt: Scalars['DateTime'];
   readonly updatedId: Scalars['String'];
   /** BaseTable.version */
@@ -67,6 +71,8 @@ export type AppOrderSaveIn = {
   readonly createdId?: Maybe<Scalars['String']>;
   readonly deletedAt?: Maybe<Scalars['DateTime']>;
   readonly deletedId?: Maybe<Scalars['String']>;
+  /** 明细 */
+  readonly details?: Maybe<Scalars['JSONObject']>;
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
   readonly id?: Maybe<Scalars['String']>;
@@ -80,6 +86,8 @@ export type AppOrderSaveIn = {
   readonly remark?: Maybe<Scalars['String']>;
   /** 订单状态 */
   readonly status?: Maybe<Scalars['String']>;
+  /** 订单标题 */
+  readonly title?: Maybe<Scalars['String']>;
   readonly updatedAt?: Maybe<Scalars['DateTime']>;
   readonly updatedId?: Maybe<Scalars['String']>;
   /** BaseTable.version */
@@ -679,6 +687,35 @@ export type WxDataDecoded = {
   readonly purePhoneNumber?: Maybe<Scalars['String']>;
   /** token */
   readonly token?: Maybe<Scalars['String']>;
+};
+
+export type AppOrderAllQueryVariables = Exact<{
+  param?: Maybe<QueryListParam>;
+}>;
+
+export type AppOrderAllQuery = {
+  readonly __typename?: 'Query';
+  readonly appOrderAll: ReadonlyArray<{
+    readonly __typename?: 'AppOrder';
+    readonly orderAmount?: number | null | undefined;
+    readonly otherId?: string | null | undefined;
+    readonly remark?: string | null | undefined;
+    readonly status?: string | null | undefined;
+    readonly title?: string | null | undefined;
+    readonly details?: any | null | undefined;
+    readonly createdAt: any;
+  }>;
+};
+
+export type AppOrderFragment = {
+  readonly __typename?: 'AppOrder';
+  readonly orderAmount?: number | null | undefined;
+  readonly otherId?: string | null | undefined;
+  readonly remark?: string | null | undefined;
+  readonly status?: string | null | undefined;
+  readonly title?: string | null | undefined;
+  readonly details?: any | null | undefined;
+  readonly createdAt: any;
 };
 
 export type LoginQueryVariables = Exact<{

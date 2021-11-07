@@ -3,6 +3,17 @@ import * as SchemaTypes from './foundation';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {};
+export const AppOrderFragmentDoc = gql`
+  fragment AppOrder on AppOrder {
+    orderAmount
+    otherId
+    remark
+    status
+    title
+    details
+    createdAt
+  }
+`;
 export const LoginUserFragmentDoc = gql`
   fragment LoginUser on AuthGql {
     id
@@ -19,6 +30,63 @@ export const CodeToSessionGqlFragmentDoc = gql`
     token
   }
 `;
+export const AppOrderAllDocument = gql`
+  query appOrderAll($param: QueryListParam) {
+    appOrderAll(param: $param) {
+      ...AppOrder
+    }
+  }
+  ${AppOrderFragmentDoc}
+`;
+
+/**
+ * __useAppOrderAllQuery__
+ *
+ * To run a query within a React component, call `useAppOrderAllQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAppOrderAllQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAppOrderAllQuery({
+ *   variables: {
+ *      param: // value for 'param'
+ *   },
+ * });
+ */
+export function useAppOrderAllQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    SchemaTypes.AppOrderAllQuery,
+    SchemaTypes.AppOrderAllQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    SchemaTypes.AppOrderAllQuery,
+    SchemaTypes.AppOrderAllQueryVariables
+  >(AppOrderAllDocument, options);
+}
+export function useAppOrderAllLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SchemaTypes.AppOrderAllQuery,
+    SchemaTypes.AppOrderAllQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    SchemaTypes.AppOrderAllQuery,
+    SchemaTypes.AppOrderAllQueryVariables
+  >(AppOrderAllDocument, options);
+}
+export type AppOrderAllQueryHookResult = ReturnType<typeof useAppOrderAllQuery>;
+export type AppOrderAllLazyQueryHookResult = ReturnType<
+  typeof useAppOrderAllLazyQuery
+>;
+export type AppOrderAllQueryResult = Apollo.QueryResult<
+  SchemaTypes.AppOrderAllQuery,
+  SchemaTypes.AppOrderAllQueryVariables
+>;
 export const LoginDocument = gql`
   query login($username: String!, $password: String!) {
     login(username: $username, password: $password) {

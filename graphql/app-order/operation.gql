@@ -1,0 +1,16 @@
+# 分页加载
+query appOrderAll($param: QueryListParam) {
+  appOrderAll(param: $param) {
+    ...AppOrder
+  }
+}
+
+fragment AppOrder on AppOrder {
+  orderAmount
+  otherId
+  remark
+  status
+  title
+  details
+  createdAt
+}
