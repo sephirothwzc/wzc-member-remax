@@ -11,6 +11,7 @@ export type NavIconData = {
   color?: string;
   size?: string;
   url?: string;
+  text?: string;
 };
 
 const navIconData: Array<NavIconData> = [
@@ -18,13 +19,16 @@ const navIconData: Array<NavIconData> = [
     iconType: 'favorfill',
     color: '#FF6666',
     url: '/pages/app-order/index',
+    text: '我要充值',
   },
   {
     iconType: 'likefill',
     color: '#FFCC33',
+    text: '会员充值',
   },
   {
     iconType: 'comment',
+    text: '我要留言',
   },
 ];
 
@@ -32,6 +36,7 @@ const renderGridItem = (col: NavIconData, index?: number) => (
   <View className={styles.demoGridItem}>
     <Navigator url={col.url}>
       <Icon type={col.iconType} size="72px" color={col.color}></Icon>
+      <View>{col.text}</View>
     </Navigator>
   </View>
 );

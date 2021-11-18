@@ -1,6 +1,7 @@
 import Frame from '@/component/frame';
 import { RootState } from '@/redux/store';
 import { Button, Card, Cell, Col, Form, Row } from 'annar';
+import { useEffect } from 'react';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -12,8 +13,12 @@ const Index = () => {
     phone: appUser?.phone,
     amount: process.env.REMAX_APP_ORDER_AMOUNT,
   };
-  console.log(initValue);
-  const [form] = Form.useForm();
+
+  const [form] = Form.useForm() as [AnnarFormInstance];
+
+  useEffect(() => {
+    form.setFieldsValue(initValue);
+  }, [appUser]);
   const handleFinish = () => {};
 
   const handleReset = () => {
