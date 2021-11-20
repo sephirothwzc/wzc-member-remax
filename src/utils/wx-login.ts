@@ -9,8 +9,15 @@ import { useImmer } from 'use-immer';
 export type IAppUser = {
   id: string;
   token: string;
-  phone: string;
-  userName: string;
+  phone?: string;
+  /**
+   * realname
+   */
+  userName?: string;
+  /**
+   * nickname
+   */
+  nickName?: string;
   openid: string;
 };
 

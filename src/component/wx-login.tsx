@@ -4,7 +4,7 @@ import { useWxLogin } from '@/utils/wx-login';
 import { Button, Loading, Popup } from 'annar';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { View } from 'remax/wechat';
+import { View, getUserProfile } from 'remax/wechat';
 import { useImmer } from 'use-immer';
 import styles from './wx-login.module.scss';
 
@@ -21,9 +21,11 @@ const WxLogin = () => {
   const ling = React.useRef<any>();
 
   const [showPhonePopup, setShowPhonePopup] = useImmer(false);
+  const [showNickNamePopup, setShowNickNamePopup] = useImmer(false);
   React.useEffect(() => {
     !data.loading && setShowPhonePopup((draft) => !data.appUser?.phone);
-  }, [data, setShowPhonePopup]);
+    !data.loading && setShowNickNamePopup((draft) => !data.appUser?.nickName);
+  }, [data, setShowPhonePopup, setShowNickNamePopup]);
 
   /**
    * 获取电话号码
@@ -56,6 +58,17 @@ const WxLogin = () => {
       });
   };
 
+  /**
+   * 获取用户信息
+   * @param param0
+   */
+  const tipUserProfile = () => {
+    getUserProfile({
+      desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {},
+    });
+  };
+
   if (data.loading) {
     return (
       <View className={styles.main}>
@@ -82,6 +95,25 @@ const WxLogin = () => {
         >
           <Button openType="getPhoneNumber" onGetPhoneNumber={getPhoneNumber}>
             获取手机号
+          </Button>
+        </View>
+      </Popup>
+      <Popup
+        position="top"
+        title="请您授权"
+        open={showNickNamePopup}
+        onClose={() => {
+          setShowNickNamePopup((draft) => false);
+        }}
+      >
+        <View
+          style={{
+            height: '300px',
+            padding: '0 24px',
+          }}
+        >
+          <Button openType="getUserProfile" onTap={tipUserProfile}>
+            完善会员资料
           </Button>
         </View>
       </Popup>

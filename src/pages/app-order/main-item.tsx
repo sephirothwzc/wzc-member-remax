@@ -50,6 +50,15 @@ const Index = () => {
               align="right"
             />
           </Form.Item>
+          <Form.Item noStyle name="memberName" rules={[{ required: true }]}>
+            <Cell.Input
+              icon="phone"
+              label="姓名"
+              placeholder="Please enter"
+              border={false}
+              align="right"
+            />
+          </Form.Item>
           <Form.Item noStyle name="orderAmount" rules={[{ required: true }]}>
             <Cell.Input
               icon="refund"

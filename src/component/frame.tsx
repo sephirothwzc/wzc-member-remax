@@ -1,8 +1,9 @@
-import { View } from '@remax/wechat';
+import { View, getSetting, authorize, startRecord } from '@remax/wechat';
 import * as React from 'react';
 import classNames from 'classnames';
 import styles from './frame.module.scss';
 import WxLogin from '@/component/wx-login';
+import { useEffect } from 'react';
 
 export interface BlockProps {
   title?: React.ReactNode;
@@ -24,6 +25,24 @@ const Frame = (props: BlockProps) => {
     padding,
     style,
   } = props;
+
+  // #region 只执行一次的 获取用户录音授权
+  // useEffect(() => {
+  // getSetting({
+  //   success(res) {
+  //     if (!res.authSetting['scope.record']) {
+  //       authorize({
+  //         scope: 'scope.record',
+  //         success() {
+  //           // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+  //           startRecord();
+  //         },
+  //       });
+  //     }
+  //   },
+  // });
+  // }, []);
+  // #endregion
 
   let backgroundColor = '#FDFFFD';
   if (grayBg) {
