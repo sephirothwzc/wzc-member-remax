@@ -34,22 +34,32 @@ const Index = () => {
               label="账号"
               placeholder="Please enter"
               border={false}
+              required
+              disabled
+              align="right"
             />
           </Form.Item>
           <Form.Item noStyle name="phone" rules={[{ required: true }]}>
             <Cell.Input
-              icon="people"
+              icon="phone"
               label="手机号"
               placeholder="Please enter"
               border={false}
+              required
+              disabled
+              align="right"
             />
           </Form.Item>
           <Form.Item noStyle name="amount" rules={[{ required: true }]}>
             <Cell.Input
-              icon="people"
+              icon="refund"
               label="充值金额"
               placeholder="Please enter"
               border={false}
+              required
+              suffix="元"
+              type="number"
+              align="right"
             />
           </Form.Item>
           <Row gutter={8} style={{ padding: '0 20px' }}>
