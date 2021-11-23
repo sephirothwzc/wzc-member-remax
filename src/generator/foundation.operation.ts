@@ -87,6 +87,56 @@ export type AppOrderAllQueryResult = Apollo.QueryResult<
   SchemaTypes.AppOrderAllQuery,
   SchemaTypes.AppOrderAllQueryVariables
 >;
+export const AppUserInfoDocument = gql`
+  mutation appUserInfo($param: AppUserSaveIn!) {
+    appUser(param: $param) {
+      id
+    }
+  }
+`;
+export type AppUserInfoMutationFn = Apollo.MutationFunction<
+  SchemaTypes.AppUserInfoMutation,
+  SchemaTypes.AppUserInfoMutationVariables
+>;
+
+/**
+ * __useAppUserInfoMutation__
+ *
+ * To run a mutation, you first call `useAppUserInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAppUserInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [appUserInfoMutation, { data, loading, error }] = useAppUserInfoMutation({
+ *   variables: {
+ *      param: // value for 'param'
+ *   },
+ * });
+ */
+export function useAppUserInfoMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SchemaTypes.AppUserInfoMutation,
+    SchemaTypes.AppUserInfoMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    SchemaTypes.AppUserInfoMutation,
+    SchemaTypes.AppUserInfoMutationVariables
+  >(AppUserInfoDocument, options);
+}
+export type AppUserInfoMutationHookResult = ReturnType<
+  typeof useAppUserInfoMutation
+>;
+export type AppUserInfoMutationResult =
+  Apollo.MutationResult<SchemaTypes.AppUserInfoMutation>;
+export type AppUserInfoMutationOptions = Apollo.BaseMutationOptions<
+  SchemaTypes.AppUserInfoMutation,
+  SchemaTypes.AppUserInfoMutationVariables
+>;
 export const LoginDocument = gql`
   query login($username: String!, $password: String!) {
     login(username: $username, password: $password) {

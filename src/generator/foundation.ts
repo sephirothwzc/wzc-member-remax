@@ -718,6 +718,15 @@ export type AppOrderFragment = {
   readonly createdAt: any;
 };
 
+export type AppUserInfoMutationVariables = Exact<{
+  param: AppUserSaveIn;
+}>;
+
+export type AppUserInfoMutation = {
+  readonly __typename?: 'Mutation';
+  readonly appUser: { readonly __typename?: 'AppUser'; readonly id: string };
+};
+
 export type LoginQueryVariables = Exact<{
   username: Scalars['String'];
   password: Scalars['String'];
