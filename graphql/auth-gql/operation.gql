@@ -24,6 +24,7 @@ fragment CodeToSessionGql on CodeToSessionGql {
   phone
   id
   token
+  nickname
 }
 
 query wxDataDecoded(
