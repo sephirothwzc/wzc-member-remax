@@ -73,6 +73,7 @@ const WxLogin = () => {
       cloudID: detail?.cloudID,
       encryptedData: detail.encryptedData,
       openid: data?.appUser?.openid,
+      sessionKey: data.appUser?.sessionKey,
     })
       .then((result) => {
         dispatch(

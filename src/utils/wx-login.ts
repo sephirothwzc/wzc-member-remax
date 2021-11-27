@@ -19,6 +19,10 @@ export type IAppUser = {
    */
   nickname?: string;
   openid: string;
+  /**
+   * sessionKey
+   */
+  sessionKey?: string;
 };
 
 /**

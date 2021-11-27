@@ -52,7 +52,7 @@ const Index = () => {
           </Form.Item>
           <Form.Item noStyle name="memberName" rules={[{ required: true }]}>
             <Cell.Input
-              icon="phone"
+              icon="profile"
               label="姓名"
               placeholder="Please enter"
               border={false}
