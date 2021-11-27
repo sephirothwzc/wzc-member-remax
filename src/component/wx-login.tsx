@@ -18,6 +18,32 @@ type PhoneDetail = {
   cloudID?: string;
 };
 
+type UserInfoDetail = {
+  encryptedData: string;
+  errMsg: string; // "getUserProfile:ok"
+  iv: string;
+  rawData: string; // json
+  signature: string;
+  userInfo: {
+    avatarUrl: string; // 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIw6RYicXecjzucjC1OC2NUUVcvf9lk4vzomhAXl3KP1iaN8H1icZChr22Np9EwI7lLpq8gUhEeyn3Fg/132';
+    city: string;
+    country: string;
+    gender: number; // 0
+    language: string; // 'zh_CN';
+    nickName: string; // 'Bobo';
+    province: string;
+  };
+};
+
+const displayGender = (value: number): string => {
+  if (value === 1) {
+    return '男';
+  } else if (value === 0) {
+    return '女';
+  }
+  return '未知';
+};
+
 const WxLogin = () => {
   const data = useWxLogin();
   const dispatch = useDispatch();
@@ -26,11 +52,10 @@ const WxLogin = () => {
   const [showPhonePopup, setShowPhonePopup] = useImmer(false);
   const [showNickNamePopup, setShowNickNamePopup] = useImmer(false);
 
-  const [appUserInfoSave] = useAppUserInfoMutation();
-
+  const [appUserInfoMutation] = useAppUserInfoMutation();
   React.useEffect(() => {
-    !data.loading && setShowPhonePopup((draft) => !data.appUser?.phone);
     !data.loading && setShowNickNamePopup((draft) => !data.appUser?.nickName);
+    !data.loading && setShowPhonePopup((draft) => !data.appUser?.phone);
   }, [data, setShowPhonePopup, setShowNickNamePopup]);
 
   /**
@@ -42,7 +67,7 @@ const WxLogin = () => {
    * 获取手机号回掉
    * @param param0
    */
-  const getPhoneNumber = ({ detail }: { detail: PhoneDetail }) => {
+  const getPhoneNumber = async ({ detail }: { detail: PhoneDetail }) => {
     phoneRefetch({
       iv: detail.iv,
       cloudID: detail?.cloudID,
@@ -71,8 +96,27 @@ const WxLogin = () => {
   const tipUserProfile = () => {
     getUserProfile({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
+      success: (res: UserInfoDetail) => {
+        if (res.errMsg !== 'getUserProfile:ok') {
+          ling.current.error(res.errMsg);
+        }
         console.log(res);
+        appUserInfoMutation({
+          variables: {
+            param: {
+              id: data?.appUser?.id,
+              nickname: res.userInfo.nickName,
+              gender: displayGender(res.userInfo.gender),
+              hdaderImg: res.userInfo.avatarUrl,
+            },
+          },
+        })
+          .then((res) => {
+            setShowNickNamePopup((draft) => false);
+          })
+          .catch((error) => {
+            ling.current.error(error);
+          });
       },
     });
   };
@@ -90,25 +134,6 @@ const WxLogin = () => {
       <Popup
         position="top"
         title="请您授权"
-        open={showPhonePopup}
-        onClose={() => {
-          setShowPhonePopup((draft) => false);
-        }}
-      >
-        <View
-          style={{
-            height: '300px',
-            padding: '0 24px',
-          }}
-        >
-          <Button openType="getPhoneNumber" onGetPhoneNumber={getPhoneNumber}>
-            获取手机号
-          </Button>
-        </View>
-      </Popup>
-      <Popup
-        position="top"
-        title="请您授权"
         open={showNickNamePopup}
         onClose={() => {
           setShowNickNamePopup((draft) => false);
@@ -122,6 +147,25 @@ const WxLogin = () => {
         >
           <Button openType="getUserProfile" onTap={tipUserProfile}>
             完善会员资料
+          </Button>
+        </View>
+      </Popup>
+      <Popup
+        position="top"
+        title="请您授权"
+        open={showPhonePopup}
+        onClose={() => {
+          setShowPhonePopup((draft) => false);
+        }}
+      >
+        <View
+          style={{
+            height: '300px',
+            padding: '0 24px',
+          }}
+        >
+          <Button openType="getPhoneNumber" onGetPhoneNumber={getPhoneNumber}>
+            获取手机号
           </Button>
         </View>
       </Popup>
