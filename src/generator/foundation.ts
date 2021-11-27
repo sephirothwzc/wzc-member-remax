@@ -235,6 +235,8 @@ export type CodeToSessionGql = {
   readonly __typename?: 'CodeToSessionGql';
   /** id */
   readonly id?: Maybe<Scalars['String']>;
+  /** nickname */
+  readonly nickname?: Maybe<Scalars['String']>;
   /** openid */
   readonly openid?: Maybe<Scalars['String']>;
   /** phone */
@@ -767,6 +769,7 @@ export type CodeToSessionQuery = {
         readonly phone?: string | null | undefined;
         readonly id?: string | null | undefined;
         readonly token?: string | null | undefined;
+        readonly nickname?: string | null | undefined;
       }
     | null
     | undefined;
@@ -786,6 +789,7 @@ export type CodeToSessionGqlFragment = {
   readonly phone?: string | null | undefined;
   readonly id?: string | null | undefined;
   readonly token?: string | null | undefined;
+  readonly nickname?: string | null | undefined;
 };
 
 export type WxDataDecodedQueryVariables = Exact<{

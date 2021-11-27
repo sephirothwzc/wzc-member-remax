@@ -24,6 +24,7 @@ const navIconData: Array<NavIconData> = [
   {
     iconType: 'likefill',
     color: '#FFCC33',
+    url: '/pages/app-order/main-item',
     text: '会员充值',
   },
   {

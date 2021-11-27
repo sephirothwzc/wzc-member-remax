@@ -54,7 +54,7 @@ const WxLogin = () => {
 
   const [appUserInfoMutation] = useAppUserInfoMutation();
   React.useEffect(() => {
-    !data.loading && setShowNickNamePopup((draft) => !data.appUser?.nickName);
+    !data.loading && setShowNickNamePopup((draft) => !data.appUser?.nickname);
     !data.loading && setShowPhonePopup((draft) => !data.appUser?.phone);
   }, [data, setShowPhonePopup, setShowNickNamePopup]);
 
@@ -100,7 +100,6 @@ const WxLogin = () => {
         if (res.errMsg !== 'getUserProfile:ok') {
           ling.current.error(res.errMsg);
         }
-        console.log(res);
         appUserInfoMutation({
           variables: {
             param: {

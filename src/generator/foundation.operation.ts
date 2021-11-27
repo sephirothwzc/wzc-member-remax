@@ -28,6 +28,7 @@ export const CodeToSessionGqlFragmentDoc = gql`
     phone
     id
     token
+    nickname
   }
 `;
 export const AppOrderAllDocument = gql`

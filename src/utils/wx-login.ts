@@ -13,11 +13,11 @@ export type IAppUser = {
   /**
    * realname
    */
-  userName?: string;
+  username?: string;
   /**
    * nickname
    */
-  nickName?: string;
+  nickname?: string;
   openid: string;
 };
 
