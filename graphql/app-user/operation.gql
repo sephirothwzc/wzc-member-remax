@@ -1,3 +1,5 @@
-mutation appUserInfo($param:AppUserSaveIn!) {
-  
+mutation appUserInfo($param: AppUserSaveIn!) {
+  appUser(param: $param) {
+    id
+  }
 }

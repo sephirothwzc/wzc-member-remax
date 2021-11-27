@@ -37,12 +37,16 @@ export type AppOrder = {
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
   readonly id: Scalars['ID'];
+  /** 会员名 */
+  readonly memberName?: Maybe<Scalars['String']>;
   /** 消息队列id */
   readonly msgId?: Maybe<Scalars['String']>;
   /** 订单金额分 */
   readonly orderAmount?: Maybe<Scalars['Int']>;
   /** 三方支付订单id */
   readonly otherId?: Maybe<Scalars['String']>;
+  /** 手机号 */
+  readonly phone?: Maybe<Scalars['String']>;
   /** 备注 */
   readonly remark?: Maybe<Scalars['String']>;
   /** 订单状态 */
@@ -76,12 +80,16 @@ export type AppOrderSaveIn = {
   /** 状态 1启用 0停用默认1 */
   readonly enableFlag?: Maybe<Scalars['Int']>;
   readonly id?: Maybe<Scalars['String']>;
+  /** 会员名 */
+  readonly memberName?: Maybe<Scalars['String']>;
   /** 消息队列id */
   readonly msgId?: Maybe<Scalars['String']>;
   /** 订单金额分 */
   readonly orderAmount?: Maybe<Scalars['Int']>;
   /** 三方支付订单id */
   readonly otherId?: Maybe<Scalars['String']>;
+  /** 手机号 */
+  readonly phone?: Maybe<Scalars['String']>;
   /** 备注 */
   readonly remark?: Maybe<Scalars['String']>;
   /** 订单状态 */
@@ -716,6 +724,15 @@ export type AppOrderFragment = {
   readonly title?: string | null | undefined;
   readonly details?: any | null | undefined;
   readonly createdAt: any;
+};
+
+export type AppUserInfoMutationVariables = Exact<{
+  param: AppUserSaveIn;
+}>;
+
+export type AppUserInfoMutation = {
+  readonly __typename?: 'Mutation';
+  readonly appUser: { readonly __typename?: 'AppUser'; readonly id: string };
 };
 
 export type LoginQueryVariables = Exact<{

@@ -1,4 +1,7 @@
-import { useWxDataDecodedQuery } from '@/generator/foundation.operation';
+import {
+  useAppUserInfoMutation,
+  useWxDataDecodedQuery,
+} from '@/generator/foundation.operation';
 import loginActions, { LOGIN_ACTION } from '@/redux/action/login';
 import { useWxLogin } from '@/utils/wx-login';
 import { Button, Loading, Popup } from 'annar';
@@ -22,6 +25,9 @@ const WxLogin = () => {
 
   const [showPhonePopup, setShowPhonePopup] = useImmer(false);
   const [showNickNamePopup, setShowNickNamePopup] = useImmer(false);
+
+  const [appUserInfoSave] = useAppUserInfoMutation();
+
   React.useEffect(() => {
     !data.loading && setShowPhonePopup((draft) => !data.appUser?.phone);
     !data.loading && setShowNickNamePopup((draft) => !data.appUser?.nickName);
@@ -65,7 +71,9 @@ const WxLogin = () => {
   const tipUserProfile = () => {
     getUserProfile({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {},
+      success: (res) => {
+        console.log(res);
+      },
     });
   };
 
