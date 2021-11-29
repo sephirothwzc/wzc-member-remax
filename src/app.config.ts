@@ -4,7 +4,7 @@ const config: AppConfig = {
   pages: [
     'pages/index/index',
     'pages/app-order/index',
-    'pages/app-order/main-item',
+    'pages/main-order/index',
   ],
   window: {
     navigationBarTitleText: '美格造型',

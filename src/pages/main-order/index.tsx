@@ -24,6 +24,11 @@ const Index = () => {
   const handleReset = () => {
     form.resetFields(initValue);
   };
+
+  const handlePhoneChange = (value: string) => {
+    console.log(value);
+  };
+
   return (
     <Frame padding grayBg>
       <Card contentStyle={{ padding: '20px 0 20px' }}>
@@ -32,7 +37,7 @@ const Index = () => {
             <Cell.Input
               icon="people"
               label="账号"
-              placeholder="Please enter"
+              placeholder="根据手机号带入"
               border={false}
               required
               disabled
@@ -43,11 +48,12 @@ const Index = () => {
             <Cell.Input
               icon="phone"
               label="手机号"
-              placeholder="Please enter"
+              placeholder="请输入"
               border={false}
               required
-              disabled
               align="right"
+              maxLength={11}
+              onChange={handlePhoneChange}
             />
           </Form.Item>
           <Form.Item noStyle name="memberName" rules={[{ required: true }]}>

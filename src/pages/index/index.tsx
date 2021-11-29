@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { View, navigateTo, Navigator } from 'remax/wechat';
+import { View, Navigator } from 'remax/wechat';
 import { Grid, Icon, Ling, Swiper } from 'annar';
 import styles from './index.module.scss';
 import Frame from '@/component/frame';
@@ -24,22 +24,22 @@ const navIconData: Array<NavIconData> = [
   {
     iconType: 'likefill',
     color: '#FFCC33',
-    url: '/pages/app-order/main-item',
+    url: '/pages/main-order/index',
     text: '会员充值',
   },
   {
-    iconType: 'comment',
-    text: '我要留言',
+    iconType: 'list',
+    text: '团购记录',
   },
 ];
 
 const renderGridItem = (col: NavIconData, index?: number) => (
-  <View className={styles.demoGridItem}>
-    <Navigator url={col.url}>
+  <Navigator url={col.url}>
+    <View className={styles.demoGridItem}>
       <Icon type={col.iconType} size="72px" color={col.color}></Icon>
-      <View>{col.text}</View>
-    </Navigator>
-  </View>
+      <View className={styles.name}>{col.text}</View>
+    </View>
+  </Navigator>
 );
 
 export default () => {
