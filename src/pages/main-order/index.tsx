@@ -4,6 +4,7 @@ import { Button, Card, Cell, Col, Form, Row } from 'annar';
 import { useEffect } from 'react';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import { debounce } from 'lodash';
 
 const Index = () => {
   const appUser = useSelector((state: RootState) => state?.login?.appUser);
@@ -53,7 +54,10 @@ const Index = () => {
               required
               align="right"
               maxLength={11}
-              onChange={handlePhoneChange}
+              onChange={debounce(
+                handlePhoneChange,
+                process.env.REMAX_APP_DEBOUNCE as any
+              )}
             />
           </Form.Item>
           <Form.Item noStyle name="memberName" rules={[{ required: true }]}>
