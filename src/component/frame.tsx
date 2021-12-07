@@ -1,9 +1,10 @@
-import { View, getSetting, authorize, startRecord } from '@remax/wechat';
+import { View } from '@remax/wechat';
 import * as React from 'react';
+import { forwardRef, useRef } from 'react';
 import classNames from 'classnames';
 import styles from './frame.module.scss';
 import WxLogin from '@/component/wx-login';
-import { useEffect } from 'react';
+import { Ling } from 'annar';
 
 export interface BlockProps {
   title?: React.ReactNode;
@@ -15,7 +16,7 @@ export interface BlockProps {
   style?: React.CSSProperties;
 }
 
-const Frame = (props: BlockProps) => {
+const Frame = (props: BlockProps,cRef:) => {
   const {
     title,
     children,
@@ -25,6 +26,8 @@ const Frame = (props: BlockProps) => {
     padding,
     style,
   } = props;
+
+  const ling = useRef<any>();
 
   // #region 只执行一次的 获取用户录音授权
   // useEffect(() => {
@@ -64,10 +67,11 @@ const Frame = (props: BlockProps) => {
         backgroundColor,
       }}
     >
+      <Ling ref={ling} />
       {title ? <View className={styles.title}>{title}</View> : null}
       <View className={styles.content}>{children}</View>
       <WxLogin></WxLogin>
     </View>
   );
 };
-export default Frame;
+export default forwardRef(Frame);

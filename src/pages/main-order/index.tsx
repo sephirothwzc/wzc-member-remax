@@ -4,15 +4,23 @@ import { Button, Card, Cell, Col, Form, Row } from 'annar';
 import { useEffect } from 'react';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { debounce } from 'lodash';
+import { debounce, multiply } from 'lodash';
+import {
+  useAppOrderMutation,
+  useAppUserAllQuery,
+} from '@/generator/foundation.operation';
+import { AppOrderSaveIn } from '@/generator/foundation';
+import { navigateBack } from 'remax/wechat';
 
 const Index = () => {
   const appUser = useSelector((state: RootState) => state?.login?.appUser);
+  const { refetch: appUserQuery } = useAppUserAllQuery({
+    skip: true,
+  });
+  const [appOrderSave] = useAppOrderMutation();
 
   const initValue = {
-    appUserId: appUser?.id,
-    phone: appUser?.phone,
-    amount: process.env.REMAX_APP_ORDER_AMOUNT,
+    orderAmount: process.env.REMAX_APP_ORDER_AMOUNT,
   };
 
   const [form] = Form.useForm() as [AnnarFormInstance];
@@ -20,14 +28,55 @@ const Index = () => {
   useEffect(() => {
     form.setFieldsValue(initValue);
   }, [appUser]);
-  const handleFinish = () => {};
+
+  const handleFinish = async (value: AppOrderSaveIn) => {
+    // 金额处理
+    const saveResult = await appOrderSave({
+      variables: {
+        param: {
+          ...value,
+          orderAmount: multiply(value.orderAmount as number, 100),
+        },
+      },
+    });
+    if (saveResult.data?.appOrder?.id) {
+      navigateBack();
+    } else {
+    }
+  };
 
   const handleReset = () => {
     form.resetFields(initValue);
   };
 
-  const handlePhoneChange = (value: string) => {
-    console.log(value);
+  const handlePhoneChange = async (e: { target: { value: string } }) => {
+    if (!e.target.value) {
+      form.setFieldsValue({
+        appUserId: '',
+        memberName: '',
+      });
+    } else if ([4, 6, 8, 10, 12].includes(e.target.value.length)) {
+      // 根据手机号获取用户
+      const list = await appUserQuery({
+        param: {
+          where: {
+            phone: {
+              _like: `%${e.target.value}%`,
+            },
+          },
+        },
+      });
+      if (list.data.appUserAll.length === 1) {
+        // 只有一个手机号匹配到了
+        form.setFieldsValue({
+          appUserId: list.data.appUserAll[0].id,
+          memberName:
+            list.data.appUserAll[0].realName ||
+            list.data.appUserAll[0].nickname,
+          phone: list.data.appUserAll[0].phone,
+        });
+      }
+    }
   };
 
   return (
@@ -79,6 +128,14 @@ const Index = () => {
               suffix="元"
               type="number"
               align="right"
+            />
+          </Form.Item>
+          <Form.Item noStyle name="remark">
+            <Cell.Input
+              label="备注"
+              placeholder="Please enter"
+              border={false}
+              align="top"
             />
           </Form.Item>
           <Row gutter={8} style={{ padding: '0 20px' }}>

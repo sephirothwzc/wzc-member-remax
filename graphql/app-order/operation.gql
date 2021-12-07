@@ -14,3 +14,9 @@ fragment AppOrder on AppOrder {
   details
   createdAt
 }
+
+mutation appOrder($param: AppOrderSaveIn!) {
+  appOrder(param: $param) {
+    id
+  }
+}

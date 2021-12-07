@@ -14,6 +14,15 @@ export const AppOrderFragmentDoc = gql`
     createdAt
   }
 `;
+export const AppUserFragmentDoc = gql`
+  fragment AppUser on AppUser {
+    id
+    nickname
+    realName
+    openid
+    phone
+  }
+`;
 export const LoginUserFragmentDoc = gql`
   fragment LoginUser on AuthGql {
     id
@@ -88,6 +97,54 @@ export type AppOrderAllQueryResult = Apollo.QueryResult<
   SchemaTypes.AppOrderAllQuery,
   SchemaTypes.AppOrderAllQueryVariables
 >;
+export const AppOrderDocument = gql`
+  mutation appOrder($param: AppOrderSaveIn!) {
+    appOrder(param: $param) {
+      id
+    }
+  }
+`;
+export type AppOrderMutationFn = Apollo.MutationFunction<
+  SchemaTypes.AppOrderMutation,
+  SchemaTypes.AppOrderMutationVariables
+>;
+
+/**
+ * __useAppOrderMutation__
+ *
+ * To run a mutation, you first call `useAppOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAppOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [appOrderMutation, { data, loading, error }] = useAppOrderMutation({
+ *   variables: {
+ *      param: // value for 'param'
+ *   },
+ * });
+ */
+export function useAppOrderMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SchemaTypes.AppOrderMutation,
+    SchemaTypes.AppOrderMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    SchemaTypes.AppOrderMutation,
+    SchemaTypes.AppOrderMutationVariables
+  >(AppOrderDocument, options);
+}
+export type AppOrderMutationHookResult = ReturnType<typeof useAppOrderMutation>;
+export type AppOrderMutationResult =
+  Apollo.MutationResult<SchemaTypes.AppOrderMutation>;
+export type AppOrderMutationOptions = Apollo.BaseMutationOptions<
+  SchemaTypes.AppOrderMutation,
+  SchemaTypes.AppOrderMutationVariables
+>;
 export const AppUserInfoDocument = gql`
   mutation appUserInfo($param: AppUserSaveIn!) {
     appUser(param: $param) {
@@ -137,6 +194,63 @@ export type AppUserInfoMutationResult =
 export type AppUserInfoMutationOptions = Apollo.BaseMutationOptions<
   SchemaTypes.AppUserInfoMutation,
   SchemaTypes.AppUserInfoMutationVariables
+>;
+export const AppUserAllDocument = gql`
+  query appUserAll($param: QueryListParam) {
+    appUserAll(param: $param) {
+      ...AppUser
+    }
+  }
+  ${AppUserFragmentDoc}
+`;
+
+/**
+ * __useAppUserAllQuery__
+ *
+ * To run a query within a React component, call `useAppUserAllQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAppUserAllQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAppUserAllQuery({
+ *   variables: {
+ *      param: // value for 'param'
+ *   },
+ * });
+ */
+export function useAppUserAllQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    SchemaTypes.AppUserAllQuery,
+    SchemaTypes.AppUserAllQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    SchemaTypes.AppUserAllQuery,
+    SchemaTypes.AppUserAllQueryVariables
+  >(AppUserAllDocument, options);
+}
+export function useAppUserAllLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SchemaTypes.AppUserAllQuery,
+    SchemaTypes.AppUserAllQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    SchemaTypes.AppUserAllQuery,
+    SchemaTypes.AppUserAllQueryVariables
+  >(AppUserAllDocument, options);
+}
+export type AppUserAllQueryHookResult = ReturnType<typeof useAppUserAllQuery>;
+export type AppUserAllLazyQueryHookResult = ReturnType<
+  typeof useAppUserAllLazyQuery
+>;
+export type AppUserAllQueryResult = Apollo.QueryResult<
+  SchemaTypes.AppUserAllQuery,
+  SchemaTypes.AppUserAllQueryVariables
 >;
 export const LoginDocument = gql`
   query login($username: String!, $password: String!) {

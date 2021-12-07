@@ -728,6 +728,15 @@ export type AppOrderFragment = {
   readonly createdAt: any;
 };
 
+export type AppOrderMutationVariables = Exact<{
+  param: AppOrderSaveIn;
+}>;
+
+export type AppOrderMutation = {
+  readonly __typename?: 'Mutation';
+  readonly appOrder: { readonly __typename?: 'AppOrder'; readonly id: string };
+};
+
 export type AppUserInfoMutationVariables = Exact<{
   param: AppUserSaveIn;
 }>;
@@ -735,6 +744,31 @@ export type AppUserInfoMutationVariables = Exact<{
 export type AppUserInfoMutation = {
   readonly __typename?: 'Mutation';
   readonly appUser: { readonly __typename?: 'AppUser'; readonly id: string };
+};
+
+export type AppUserAllQueryVariables = Exact<{
+  param?: Maybe<QueryListParam>;
+}>;
+
+export type AppUserAllQuery = {
+  readonly __typename?: 'Query';
+  readonly appUserAll: ReadonlyArray<{
+    readonly __typename?: 'AppUser';
+    readonly id: string;
+    readonly nickname?: string | null | undefined;
+    readonly realName?: string | null | undefined;
+    readonly openid?: string | null | undefined;
+    readonly phone?: string | null | undefined;
+  }>;
+};
+
+export type AppUserFragment = {
+  readonly __typename?: 'AppUser';
+  readonly id: string;
+  readonly nickname?: string | null | undefined;
+  readonly realName?: string | null | undefined;
+  readonly openid?: string | null | undefined;
+  readonly phone?: string | null | undefined;
 };
 
 export type LoginQueryVariables = Exact<{

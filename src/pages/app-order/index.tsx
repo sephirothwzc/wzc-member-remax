@@ -11,7 +11,7 @@ const Index = () => {
   const initValue = {
     appUserId: appUser?.id,
     phone: appUser?.phone,
-    amount: process.env.REMAX_APP_ORDER_AMOUNT,
+    orderAmount: process.env.REMAX_APP_ORDER_AMOUNT,
   };
 
   const [form] = Form.useForm() as [AnnarFormInstance];
@@ -59,6 +59,15 @@ const Index = () => {
               required
               suffix="元"
               type="number"
+              align="right"
+            />
+          </Form.Item>
+          <Form.Item noStyle name="remark" rules={[{ required: true }]}>
+            <Cell.Input
+              icon="profile"
+              label="备注"
+              placeholder="Please enter"
+              border={false}
               align="right"
             />
           </Form.Item>

@@ -3,3 +3,17 @@ mutation appUserInfo($param: AppUserSaveIn!) {
     id
   }
 }
+
+query appUserAll($param: QueryListParam) {
+  appUserAll(param: $param) {
+    ...AppUser
+  }
+}
+
+fragment AppUser on AppUser {
+  id
+  nickname
+  realName
+  openid
+  phone
+}
